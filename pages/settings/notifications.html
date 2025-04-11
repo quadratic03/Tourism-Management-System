@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Settings - Tourist Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../dashboard.html" class="sidebar-logo">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span class="menu-item-text">TMS</span>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                <a href="../dashboard.html" class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="menu-item-text">Dashboard</span>
+                </a>
+                <a href="../tourists/index.html" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span class="menu-item-text">Tourists</span>
+                </a>
+                <a href="../bookings/index.html" class="menu-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="menu-item-text">Bookings</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="../reports/index.html" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="menu-item-text">Reports</span>
+                </a>
+                <a href="index.html" class="menu-item active">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-item-text">Settings</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="#" class="menu-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="menu-item-text">Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header -->
+            <div class="main-header">
+                <div class="d-flex align-items-center">
+                    <button class="header-btn me-2" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h4 class="page-title">Notification Settings</h4>
+                </div>
+                <div class="header-controls">
+                    <button class="header-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="header-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/150" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <p class="user-name" id="userName">Loading...</p>
+                            <p class="user-role" id="userRole">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="content-container">
+                <!-- Back button -->
+                <div class="mb-4">
+                    <a href="index.html" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Settings
+                    </a>
+                </div>
+                
+                <!-- Notification Preferences Overview Card -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Notification Summary</h5>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="masterNotificationsToggle" checked>
+                            <label class="form-check-label" for="masterNotificationsToggle">Enable All Notifications</label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="p-3 rounded-circle bg-light d-inline-flex justify-content-center align-items-center" style="width: 80px; height: 80px;">
+                                    <i class="fas fa-envelope fa-2x text-primary"></i>
+                                </div>
+                                <h6 class="mt-3">Email Notifications</h6>
+                                <p class="text-muted">5 enabled</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="p-3 rounded-circle bg-light d-inline-flex justify-content-center align-items-center" style="width: 80px; height: 80px;">
+                                    <i class="fas fa-mobile-alt fa-2x text-success"></i>
+                                </div>
+                                <h6 class="mt-3">Push Notifications</h6>
+                                <p class="text-muted">3 enabled</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="p-3 rounded-circle bg-light d-inline-flex justify-content-center align-items-center" style="width: 80px; height: 80px;">
+                                    <i class="fas fa-desktop fa-2x text-info"></i>
+                                </div>
+                                <h6 class="mt-3">Desktop Alerts</h6>
+                                <p class="text-muted">2 enabled</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Email Notifications -->
+                <div class="card mb-4" id="emailNotifications">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Email Notifications</h5>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input notification-category-toggle" type="checkbox" id="emailNotificationsToggle" checked>
+                            <label class="form-check-label" for="emailNotificationsToggle">Enable Email Notifications</label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="emailNotificationForm">
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input email-notification" type="checkbox" id="emailNewTourist" checked>
+                                    <label class="form-check-label" for="emailNewTourist">New Tourist Registration</label>
+                                </div>
+                                <small class="text-muted d-block ms-4">Receive notifications when new tourists register in your region.</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input email-notification" type="checkbox" id="emailNewBooking" checked>
+                                    <label class="form-check-label" for="emailNewBooking">New Booking Confirmation</label>
+                                </div>
+                                <small class="text-muted d-block ms-4">Get emails when new bookings are made or confirmed.</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input email-notification" type="checkbox" id="emailBookingCancellation" checked>
+                                    <label class="form-check-label" for="emailBookingCancellation">Booking Cancellation</label>
+                                </div>
+                                <small class="text-muted d-block ms-4">Be notified when bookings are cancelled or modified.</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input email-notification" type="checkbox" id="emailSystemUpdates" checked>
+                                    <label class="form-check-label" for="emailSystemUpdates">System Updates</label>
+                                </div>
+                                <small class="text-muted d-block ms-4">Receive emails about system maintenance and updates.</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input email-notification" type="checkbox" id="emailMarketing">
+                                    <label class="form-check-label" for="emailMarketing">Marketing & Promotions</label>
+                                </div>
+                                <small class="text-muted d-block ms-4">Get promotional emails and newsletters about special offers.</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input email-notification" type="checkbox" id="emailReports" checked>
+                                    <label class="form-check-label" for="emailReports">Reports & Analytics</label>
+                                </div>
+                                <small class="text-muted d-block ms-4">Receive periodic reports and analytics summaries.</small>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="mb-2">Email Frequency</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="emailFrequency" id="emailImmediate" checked>
+                                    <label class="form-check-label" for="emailImmediate">
+                                        Send immediately
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="emailFrequency" id="emailHourly">
+                                    <label class="form-check-label" for="emailHourly">
+                                        Hourly digest
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="emailFrequency" id="emailDaily">
+                                    <label class="form-check-label" for="emailDaily">
+                                        Daily digest
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Save Email Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Push Notifications -->
+                <div class="card mb-4" id="pushNotifications">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Push Notifications</h5>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input notification-category-toggle" type="checkbox" id="pushNotificationsToggle" checked>
+                            <label class="form-check-label" for="pushNotificationsToggle">Enable Push Notifications</label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="pushNotificationForm">
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input push-notification" type="checkbox" id="pushNewTourist" checked>
+                                    <label class="form-check-label" for="pushNewTourist">New Tourist Registration</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input push-notification" type="checkbox" id="pushNewBooking" checked>
+                                    <label class="form-check-label" for="pushNewBooking">New Booking Confirmation</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input push-notification" type="checkbox" id="pushImportantAlerts" checked>
+                                    <label class="form-check-label" for="pushImportantAlerts">Important Alerts</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="mb-2">Push Notification Sound</h6>
+                                <select class="form-select" id="notificationSound">
+                                    <option value="default" selected>Default Sound</option>
+                                    <option value="chime">Chime</option>
+                                    <option value="bell">Bell</option>
+                                    <option value="none">No Sound</option>
+                                </select>
+                            </div>
+                            
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Save Push Notification Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Desktop Notifications -->
+                <div class="card mb-4" id="desktopNotifications">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Desktop Notifications</h5>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input notification-category-toggle" type="checkbox" id="desktopNotificationsToggle" checked>
+                            <label class="form-check-label" for="desktopNotificationsToggle">Enable Desktop Notifications</label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="desktopNotificationForm">
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input desktop-notification" type="checkbox" id="desktopImportantAlerts" checked>
+                                    <label class="form-check-label" for="desktopImportantAlerts">Important Alerts</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input desktop-notification" type="checkbox" id="desktopNewMessages" checked>
+                                    <label class="form-check-label" for="desktopNewMessages">New Messages</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="mb-2">Notification Display Duration</h6>
+                                <select class="form-select" id="notificationDuration">
+                                    <option value="5">5 seconds</option>
+                                    <option value="10" selected>10 seconds</option>
+                                    <option value="15">15 seconds</option>
+                                    <option value="0">Until dismissed</option>
+                                </select>
+                            </div>
+                            
+                            <div class="text-end">
+                                <button type="button" id="requestPermissionBtn" class="btn btn-outline-secondary me-2">
+                                    <i class="fas fa-bell me-1"></i>Request Notification Permission
+                                </button>
+                                <button type="submit" class="btn btn-primary">Save Desktop Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Test Notification Card -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Test Notifications</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Create test notifications to see how they appear in your system.</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="mb-3">
+                                    <label for="testNotificationType" class="form-label">Notification Type</label>
+                                    <select class="form-select" id="testNotificationType">
+                                        <option value="booking">Booking</option>
+                                        <option value="tourist">Tourist</option>
+                                        <option value="system">System</option>
+                                        <option value="alert">Alert</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="testNotificationMessage" class="form-label">Message</label>
+                                    <input type="text" class="form-control" id="testNotificationMessage" 
+                                        value="This is a test notification">
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-end">
+                                <button type="button" id="createTestNotificationBtn" class="btn btn-primary">
+                                    <i class="fas fa-bell me-1"></i>Send Test Notification
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/notifications.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form submission handlers with demo alerts
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Notification settings saved successfully! In a real application, these changes would be stored.');
+                });
+            });
+            
+            // Master toggle handler
+            const masterToggle = document.getElementById('masterNotificationsToggle');
+            const categoryToggles = document.querySelectorAll('.notification-category-toggle');
+            
+            if (masterToggle) {
+                masterToggle.addEventListener('change', function() {
+                    const isChecked = this.checked;
+                    
+                    // Toggle all category toggles
+                    categoryToggles.forEach(toggle => {
+                        toggle.checked = isChecked;
+                        // Trigger change event
+                        toggle.dispatchEvent(new Event('change'));
+                    });
+                });
+            }
+            
+            // Category toggle handlers
+            categoryToggles.forEach(categoryToggle => {
+                categoryToggle.addEventListener('change', function() {
+                    const isChecked = this.checked;
+                    const category = this.id.replace('Toggle', '');
+                    const notificationInputs = document.querySelectorAll(`.${category.replace('Notifications', '-notification')}`);
+                    
+                    // Toggle all notification inputs in the category
+                    notificationInputs.forEach(input => {
+                        input.checked = isChecked;
+                        input.disabled = !isChecked;
+                    });
+                });
+            });
+            
+            // Desktop notification permission request button
+            const requestPermissionBtn = document.getElementById('requestPermissionBtn');
+            if (requestPermissionBtn) {
+                requestPermissionBtn.addEventListener('click', function() {
+                    if ('Notification' in window) {
+                        Notification.requestPermission().then(function(permission) {
+                            if (permission === 'granted') {
+                                alert('Desktop notifications permission granted!');
+                            } else {
+                                alert('Permission for desktop notifications was denied.');
+                            }
+                        });
+                    } else {
+                        alert('This browser does not support desktop notifications.');
+                    }
+                });
+            }
+            
+            // Test notification button
+            const createTestNotificationBtn = document.getElementById('createTestNotificationBtn');
+            if (createTestNotificationBtn) {
+                createTestNotificationBtn.addEventListener('click', function() {
+                    const type = document.getElementById('testNotificationType').value;
+                    const message = document.getElementById('testNotificationMessage').value;
+                    
+                    // Add the notification
+                    window.tmsNotifications.add({
+                        type: type,
+                        message: message,
+                        timestamp: Date.now()
+                    });
+                    
+                    alert('Test notification created. Click the bell icon in the header to view.');
+                });
+            }
+            
+            // Sidebar toggle functionality
+            document.getElementById('sidebarToggle').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('sidebar-collapsed');
+                document.getElementById('mainContent').classList.toggle('content-collapsed');
+            });
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('tms_user');
+                sessionStorage.removeItem('tms_user');
+                window.location.href = '../../index.html';
+            });
+
+            // Load user info
+            const userDataString = localStorage.getItem('tms_user') || sessionStorage.getItem('tms_user');
+            if (userDataString) {
+                const userData = JSON.parse(userDataString);
+                document.getElementById('userName').textContent = userData.name;
+                document.getElementById('userRole').textContent = userData.role;
+            } else {
+                window.location.href = '../../index.html';
+            }
+        });
+    </script>
+</body>
+</html> 

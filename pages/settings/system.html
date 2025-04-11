@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Settings - Tourist Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .color-swatch {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 10px;
+            border: 2px solid transparent;
+        }
+        .color-swatch.active {
+            border-color: #000;
+        }
+        .dark-mode-preview {
+            background-color: #202124;
+            color: #fff;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .dark-mode-preview .card {
+            background-color: #303134;
+            color: #e8eaed;
+        }
+        .dark-mode-preview .btn-preview {
+            background-color: #8ab4f8;
+            color: #202124;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../dashboard.html" class="sidebar-logo">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span class="menu-item-text">TMS</span>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                <a href="../dashboard.html" class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="menu-item-text">Dashboard</span>
+                </a>
+                <a href="../tourists/index.html" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span class="menu-item-text">Tourists</span>
+                </a>
+                <a href="../bookings/index.html" class="menu-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="menu-item-text">Bookings</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="../reports/index.html" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="menu-item-text">Reports</span>
+                </a>
+                <a href="index.html" class="menu-item active">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-item-text">Settings</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="#" class="menu-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="menu-item-text">Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header -->
+            <div class="main-header">
+                <div class="d-flex align-items-center">
+                    <button class="header-btn me-2" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h4 class="page-title">System Settings</h4>
+                </div>
+                <div class="header-controls">
+                    <button class="header-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="header-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/150" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <p class="user-name" id="userName">Loading...</p>
+                            <p class="user-role" id="userRole">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="content-container">
+                <!-- Back button -->
+                <div class="mb-4">
+                    <a href="index.html" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Settings
+                    </a>
+                </div>
+                
+                <!-- Localization Settings -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">Localization Settings</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="localizationForm" class="row g-3">
+                            <div class="col-md-6">
+                                <label for="language" class="form-label">Language</label>
+                                <select class="form-select" id="language">
+                                    <option value="en" selected>English</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
+                                    <option value="de">German</option>
+                                    <option value="ja">Japanese</option>
+                                    <option value="zh">Chinese (Simplified)</option>
+                                    <option value="ar">Arabic</option>
+                                    <option value="ru">Russian</option>
+                                    <option value="pt">Portuguese</option>
+                                    <option value="it">Italian</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="timezone" class="form-label">Timezone</label>
+                                <select class="form-select" id="timezone">
+                                    <option value="UTC" selected>UTC (Coordinated Universal Time)</option>
+                                    <option value="EST">EST (Eastern Standard Time)</option>
+                                    <option value="CST">CST (Central Standard Time)</option>
+                                    <option value="MST">MST (Mountain Standard Time)</option>
+                                    <option value="PST">PST (Pacific Standard Time)</option>
+                                    <option value="GMT">GMT (Greenwich Mean Time)</option>
+                                    <option value="CET">CET (Central European Time)</option>
+                                    <option value="IST">IST (Indian Standard Time)</option>
+                                    <option value="JST">JST (Japan Standard Time)</option>
+                                    <option value="AEST">AEST (Australian Eastern Standard Time)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="dateFormat" class="form-label">Date Format</label>
+                                <select class="form-select" id="dateFormat">
+                                    <option value="MM/DD/YYYY" selected>MM/DD/YYYY</option>
+                                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                    <option value="MMM DD, YYYY">MMM DD, YYYY</option>
+                                    <option value="DD MMM YYYY">DD MMM YYYY</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="timeFormat" class="form-label">Time Format</label>
+                                <select class="form-select" id="timeFormat">
+                                    <option value="12" selected>12-hour (AM/PM)</option>
+                                    <option value="24">24-hour</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="currency" class="form-label">Currency</label>
+                                <select class="form-select" id="currency">
+                                    <option value="USD" selected>USD ($)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="JPY">JPY (¥)</option>
+                                    <option value="INR">INR (₹)</option>
+                                    <option value="CNY">CNY (¥)</option>
+                                    <option value="AUD">AUD ($)</option>
+                                    <option value="CAD">CAD ($)</option>
+                                </select>
+                            </div>
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-primary">Save Localization Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Display Settings -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">Display Settings</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="displayForm">
+                            <div class="mb-4">
+                                <h6 class="mb-3">Theme Mode</h6>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="themeMode" id="lightMode" value="light" checked>
+                                    <label class="form-check-label" for="lightMode">Light Mode</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="themeMode" id="darkMode" value="dark">
+                                    <label class="form-check-label" for="darkMode">Dark Mode</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="themeMode" id="systemMode" value="system">
+                                    <label class="form-check-label" for="systemMode">System Default</label>
+                                </div>
+                                
+                                <div class="dark-mode-preview mt-3" id="darkModePreview" style="display: none;">
+                                    <p class="mb-2"><strong>Dark Mode Preview</strong></p>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="card p-2 mb-0">
+                                                <div class="card-body p-2">
+                                                    <h6 class="card-title">Sample Card</h6>
+                                                    <p class="card-text small mb-2">This is how cards will appear in dark mode.</p>
+                                                    <button class="btn btn-sm btn-preview">Button</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="mb-3">Accent Color</h6>
+                                <div>
+                                    <div class="color-swatch active" style="background-color: #0d6efd;" data-color="#0d6efd" title="Default Blue"></div>
+                                    <div class="color-swatch" style="background-color: #198754;" data-color="#198754" title="Green"></div>
+                                    <div class="color-swatch" style="background-color: #dc3545;" data-color="#dc3545" title="Red"></div>
+                                    <div class="color-swatch" style="background-color: #fd7e14;" data-color="#fd7e14" title="Orange"></div>
+                                    <div class="color-swatch" style="background-color: #6f42c1;" data-color="#6f42c1" title="Purple"></div>
+                                    <div class="color-swatch" style="background-color: #0dcaf0;" data-color="#0dcaf0" title="Teal"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="mb-3">Font Size</h6>
+                                <select class="form-select" id="fontSize">
+                                    <option value="small">Small</option>
+                                    <option value="medium" selected>Medium (Default)</option>
+                                    <option value="large">Large</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="mb-3">Sidebar Position</h6>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sidebarPosition" id="sidebarLeft" value="left" checked>
+                                    <label class="form-check-label" for="sidebarLeft">Left</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sidebarPosition" id="sidebarRight" value="right">
+                                    <label class="form-check-label" for="sidebarRight">Right</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="animationsEnabled" checked>
+                                    <label class="form-check-label" for="animationsEnabled">Enable UI Animations</label>
+                                </div>
+                            </div>
+                            
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Save Display Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Map Settings -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">Map Configuration</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="mapSettingsForm">
+                            <div class="mb-3">
+                                <label for="defaultMapView" class="form-label">Default Map View</label>
+                                <select class="form-select" id="defaultMapView">
+                                    <option value="satellite">Satellite</option>
+                                    <option value="terrain" selected>Terrain</option>
+                                    <option value="roadmap">Roadmap</option>
+                                    <option value="hybrid">Hybrid</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="defaultZoomLevel" class="form-label">Default Zoom Level</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" class="form-range me-3" min="1" max="18" step="1" value="6" id="defaultZoomLevel">
+                                    <span id="zoomLevelValue">6</span>
+                                </div>
+                                <small class="text-muted">Lower values show more of the world, higher values show more detail.</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="defaultLocation" class="form-label">Default Map Location</label>
+                                <select class="form-select" id="defaultLocation">
+                                    <option value="world" selected>World View</option>
+                                    <option value="north-america">North America</option>
+                                    <option value="europe">Europe</option>
+                                    <option value="asia">Asia</option>
+                                    <option value="australia">Australia</option>
+                                    <option value="africa">Africa</option>
+                                    <option value="south-america">South America</option>
+                                    <option value="custom">Custom Coordinates</option>
+                                </select>
+                            </div>
+                            
+                            <div class="row mb-3" id="customCoordinates" style="display: none;">
+                                <div class="col-md-6">
+                                    <label for="latitude" class="form-label">Latitude</label>
+                                    <input type="number" class="form-control" id="latitude" step="0.000001" placeholder="e.g. 40.7128">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="longitude" class="form-label">Longitude</label>
+                                    <input type="number" class="form-control" id="longitude" step="0.000001" placeholder="e.g. -74.0060">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <h6 class="mb-2">Default Map Layers</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="layerTourists" checked>
+                                    <label class="form-check-label" for="layerTourists">
+                                        Tourists
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="layerHotels" checked>
+                                    <label class="form-check-label" for="layerHotels">
+                                        Hotels & Accommodations
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="layerAttractions" checked>
+                                    <label class="form-check-label" for="layerAttractions">
+                                        Attractions & Points of Interest
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="layerTraffic">
+                                    <label class="form-check-label" for="layerTraffic">
+                                        Traffic Conditions
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="layerWeather">
+                                    <label class="form-check-label" for="layerWeather">
+                                        Weather Conditions
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Save Map Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Data & Privacy -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">Data & Privacy</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="dataPrivacyForm">
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="dataSyncEnabled" checked>
+                                    <label class="form-check-label" for="dataSyncEnabled">Enable Data Synchronization</label>
+                                </div>
+                                <small class="text-muted d-block ms-4">Sync data across multiple devices</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="analyticsEnabled" checked>
+                                    <label class="form-check-label" for="analyticsEnabled">Enable Analytics</label>
+                                </div>
+                                <small class="text-muted d-block ms-4">Allow anonymous usage data collection to improve the system</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="locationTracking" checked>
+                                    <label class="form-check-label" for="locationTracking">Enable Location Tracking</label>
+                                </div>
+                                <small class="text-muted d-block ms-4">Allow the system to track tourist locations on maps</small>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="mb-2">Auto-Save Frequency</h6>
+                                <select class="form-select" id="autoSaveFrequency">
+                                    <option value="30">Every 30 seconds</option>
+                                    <option value="60" selected>Every minute</option>
+                                    <option value="300">Every 5 minutes</option>
+                                    <option value="never">Never (Manual save only)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="mb-2">Data Management</h6>
+                                <button type="button" class="btn btn-outline-primary mb-2 me-2">
+                                    <i class="fas fa-download me-1"></i>Export All Data
+                                </button>
+                                <button type="button" class="btn btn-outline-primary mb-2 me-2">
+                                    <i class="fas fa-upload me-1"></i>Import Data
+                                </button>
+                                <button type="button" class="btn btn-outline-danger mb-2" id="clearDataBtn">
+                                    <i class="fas fa-trash me-1"></i>Clear All Cache & Local Data
+                                </button>
+                            </div>
+                            
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Save Privacy Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/notifications.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form submission handlers with demo alerts
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('System settings saved successfully! In a real application, these changes would be stored.');
+                });
+            });
+            
+            // Dark mode toggle handler
+            const darkModeRadio = document.getElementById('darkMode');
+            const lightModeRadio = document.getElementById('lightMode');
+            const systemModeRadio = document.getElementById('systemMode');
+            const darkModePreview = document.getElementById('darkModePreview');
+            
+            if (darkModeRadio && lightModeRadio && systemModeRadio) {
+                darkModeRadio.addEventListener('change', function() {
+                    if (this.checked) {
+                        darkModePreview.style.display = 'block';
+                        document.body.classList.add('dark-mode-preview');
+                    }
+                });
+                
+                lightModeRadio.addEventListener('change', function() {
+                    if (this.checked) {
+                        darkModePreview.style.display = 'none';
+                        document.body.classList.remove('dark-mode-preview');
+                    }
+                });
+                
+                systemModeRadio.addEventListener('change', function() {
+                    if (this.checked) {
+                        // In a real app, would check system preference
+                        darkModePreview.style.display = 'none';
+                        document.body.classList.remove('dark-mode-preview');
+                    }
+                });
+            }
+            
+            // Color swatch selection
+            const colorSwatches = document.querySelectorAll('.color-swatch');
+            colorSwatches.forEach(swatch => {
+                swatch.addEventListener('click', function() {
+                    colorSwatches.forEach(s => s.classList.remove('active'));
+                    this.classList.add('active');
+                    // In a real app, would apply the color
+                    console.log('Selected color:', this.dataset.color);
+                });
+            });
+            
+            // Zoom level display
+            const zoomLevelSlider = document.getElementById('defaultZoomLevel');
+            const zoomLevelValue = document.getElementById('zoomLevelValue');
+            
+            if (zoomLevelSlider && zoomLevelValue) {
+                zoomLevelSlider.addEventListener('input', function() {
+                    zoomLevelValue.textContent = this.value;
+                });
+            }
+            
+            // Custom coordinates display toggle
+            const defaultLocation = document.getElementById('defaultLocation');
+            const customCoordinates = document.getElementById('customCoordinates');
+            
+            if (defaultLocation && customCoordinates) {
+                defaultLocation.addEventListener('change', function() {
+                    if (this.value === 'custom') {
+                        customCoordinates.style.display = 'flex';
+                    } else {
+                        customCoordinates.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Clear data button handler
+            const clearDataBtn = document.getElementById('clearDataBtn');
+            if (clearDataBtn) {
+                clearDataBtn.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to clear all cached data? This cannot be undone.')) {
+                        alert('Cache and local data cleared successfully!');
+                    }
+                });
+            }
+            
+            // Sidebar toggle functionality
+            document.getElementById('sidebarToggle').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('sidebar-collapsed');
+                document.getElementById('mainContent').classList.toggle('content-collapsed');
+            });
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('tms_user');
+                sessionStorage.removeItem('tms_user');
+                window.location.href = '../../index.html';
+            });
+
+            // Load user info
+            const userDataString = localStorage.getItem('tms_user') || sessionStorage.getItem('tms_user');
+            if (userDataString) {
+                const userData = JSON.parse(userDataString);
+                document.getElementById('userName').textContent = userData.name;
+                document.getElementById('userRole').textContent = userData.role;
+            } else {
+                window.location.href = '../../index.html';
+            }
+        });
+    </script>
+</body>
+</html> 

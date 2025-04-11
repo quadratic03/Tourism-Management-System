@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourists - Tourist Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../dashboard.html" class="sidebar-logo">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span class="menu-item-text">TMS</span>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                <a href="../dashboard.html" class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="menu-item-text">Dashboard</span>
+                </a>
+                <a href="index.html" class="menu-item active">
+                    <i class="fas fa-users"></i>
+                    <span class="menu-item-text">Tourists</span>
+                </a>
+                <a href="../bookings/index.html" class="menu-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="menu-item-text">Bookings</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="../analytics/index.html" class="menu-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="menu-item-text">Analytics</span>
+                </a>
+                <a href="../guides/index.html" class="menu-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="menu-item-text">Tour Guides</span>
+                </a>
+                <a href="../payments/index.html" class="menu-item">
+                    <i class="fas fa-credit-card"></i>
+                    <span class="menu-item-text">Payments</span>
+                </a>
+                <a href="../weather/index.html" class="menu-item">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span class="menu-item-text">Weather</span>
+                </a>
+                <a href="../documents/index.html" class="menu-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="menu-item-text">Documents</span>
+                </a>
+                <a href="../itinerary/index.html" class="menu-item">
+                    <i class="fas fa-route"></i>
+                    <span class="menu-item-text">Itinerary</span>
+                </a>
+                <a href="../support/index.html" class="menu-item">
+                    <i class="fas fa-headset"></i>
+                    <span class="menu-item-text">Support</span>
+                </a>
+                <a href="../social/index.html" class="menu-item">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="menu-item-text">Social</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="../reports/index.html" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="menu-item-text">Reports</span>
+                </a>
+                <a href="../settings/index.html" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-item-text">Settings</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="#" class="menu-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="menu-item-text">Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header -->
+            <div class="main-header">
+                <div class="d-flex align-items-center">
+                    <button class="header-btn me-2" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h4 class="page-title">Tourist Management</h4>
+                </div>
+                <div class="header-controls">
+                    <button class="header-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="header-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/150" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <p class="user-name" id="userName">Loading...</p>
+                            <p class="user-role" id="userRole">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="content-container">
+                <!-- Tourist Management Tools -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search tourists..." id="touristSearch">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTouristModal">
+                                    <i class="fas fa-plus me-2"></i> Add Tourist
+                                </button>
+                                <button class="btn btn-outline-primary ms-2">
+                                    <i class="fas fa-filter"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tourist Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2>2,547</h2>
+                                <p class="text-muted mb-0">Total Tourists</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2>1,820</h2>
+                                <p class="text-muted mb-0">Active</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2>727</h2>
+                                <p class="text-muted mb-0">Inactive</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2>134</h2>
+                                <p class="text-muted mb-0">New Today</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tourist Cards -->
+                <div class="tourist-cards">
+                    <!-- Tourist Card 1 -->
+                    <div class="tourist-card">
+                        <div class="tourist-header">
+                            <div class="tourist-avatar">
+                                <img src="https://via.placeholder.com/150" alt="Tourist">
+                            </div>
+                            <div class="tourist-info">
+                                <h5 class="tourist-name">John Smith</h5>
+                                <div class="tourist-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>New York, USA</span>
+                                </div>
+                            </div>
+                            <div class="tourist-status status-active"></div>
+                        </div>
+                        <div class="tourist-body">
+                            <div class="tourist-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Passport</span>
+                                    <span class="detail-value">AB123456</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Nationality</span>
+                                    <span class="detail-value">USA</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Registration</span>
+                                    <span class="detail-value">12 Jun 2023</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">End Date</span>
+                                    <span class="detail-value">25 Jun 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tourist-footer">
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-eye"></i>
+                                <span>View</span>
+                            </a>
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit</span>
+                            </a>
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-map"></i>
+                                <span>Track</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Tourist Card 2 -->
+                    <div class="tourist-card">
+                        <div class="tourist-header">
+                            <div class="tourist-avatar">
+                                <img src="https://via.placeholder.com/150" alt="Tourist">
+                            </div>
+                            <div class="tourist-info">
+                                <h5 class="tourist-name">Alice Johnson</h5>
+                                <div class="tourist-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Los Angeles, USA</span>
+                                </div>
+                            </div>
+                            <div class="tourist-status status-active"></div>
+                        </div>
+                        <div class="tourist-body">
+                            <div class="tourist-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Passport</span>
+                                    <span class="detail-value">CD789012</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Nationality</span>
+                                    <span class="detail-value">Canada</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Registration</span>
+                                    <span class="detail-value">10 Jun 2023</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">End Date</span>
+                                    <span class="detail-value">20 Jun 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tourist-footer">
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-eye"></i>
+                                <span>View</span>
+                            </a>
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit</span>
+                            </a>
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-map"></i>
+                                <span>Track</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Tourist Card 3 -->
+                    <div class="tourist-card">
+                        <div class="tourist-header">
+                            <div class="tourist-avatar">
+                                <img src="https://via.placeholder.com/150" alt="Tourist">
+                            </div>
+                            <div class="tourist-info">
+                                <h5 class="tourist-name">Robert Chen</h5>
+                                <div class="tourist-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Chicago, USA</span>
+                                </div>
+                            </div>
+                            <div class="tourist-status status-inactive"></div>
+                        </div>
+                        <div class="tourist-body">
+                            <div class="tourist-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Passport</span>
+                                    <span class="detail-value">EF345678</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Nationality</span>
+                                    <span class="detail-value">China</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Registration</span>
+                                    <span class="detail-value">05 Jun 2023</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">End Date</span>
+                                    <span class="detail-value">15 Jun 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tourist-footer">
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-eye"></i>
+                                <span>View</span>
+                            </a>
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit</span>
+                            </a>
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-map"></i>
+                                <span>Track</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Tourist Card 4 -->
+                    <div class="tourist-card">
+                        <div class="tourist-header">
+                            <div class="tourist-avatar">
+                                <img src="https://via.placeholder.com/150" alt="Tourist">
+                            </div>
+                            <div class="tourist-info">
+                                <h5 class="tourist-name">Maria Garcia</h5>
+                                <div class="tourist-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Houston, USA</span>
+                                </div>
+                            </div>
+                            <div class="tourist-status status-active"></div>
+                        </div>
+                        <div class="tourist-body">
+                            <div class="tourist-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Passport</span>
+                                    <span class="detail-value">GH901234</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Nationality</span>
+                                    <span class="detail-value">Mexico</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Registration</span>
+                                    <span class="detail-value">08 Jun 2023</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">End Date</span>
+                                    <span class="detail-value">18 Jun 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tourist-footer">
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-eye"></i>
+                                <span>View</span>
+                            </a>
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit</span>
+                            </a>
+                            <a href="#" class="tourist-action">
+                                <i class="fas fa-map"></i>
+                                <span>Track</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center mt-4">
+                    <nav aria-label="Tourist pagination">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Tourist Modal -->
+    <div class="modal fade" id="addTouristModal" tabindex="-1" aria-labelledby="addTouristModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTouristModalLabel">Add New Tourist</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTouristForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="fullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="nationality" class="form-label">Nationality</label>
+                                <select class="form-select" id="nationality" required>
+                                    <option value="">Select nationality</option>
+                                    <option value="USA">United States</option>
+                                    <option value="CAN">Canada</option>
+                                    <option value="MEX">Mexico</option>
+                                    <option value="GBR">United Kingdom</option>
+                                    <option value="CHN">China</option>
+                                    <option value="JPN">Japan</option>
+                                    <!-- More countries would be added here -->
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="passport" class="form-label">Passport Number</label>
+                                <input type="text" class="form-control" id="passport" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" id="dateOfBirth" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" id="gender" required>
+                                    <option value="">Select gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="emergencyContact" class="form-label">Emergency Contact</label>
+                                <input type="tel" class="form-control" id="emergencyContact" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="startDate" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="startDate" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="endDate" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="endDate" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <textarea class="form-control" id="address" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="notes" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="trackingConsent" required>
+                                <label class="form-check-label" for="trackingConsent">
+                                    I consent to location tracking for safety and tourism purposes
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveTouristBtn">Save Tourist</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../../js/dashboard.js"></script>
+    <script src="../../js/tourists.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/notifications.js"></script>
+</body>
+</html> 

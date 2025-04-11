@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather - Tourist Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .weather-card {
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .weather-card:hover {
+            transform: translateY(-5px);
+        }
+        .temp-high {
+            color: #dc3545;
+        }
+        .temp-low {
+            color: #0d6efd;
+        }
+        .forecast-day {
+            text-align: center;
+            padding: 10px;
+        }
+        .location-search .input-group {
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../dashboard.html" class="sidebar-logo">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span class="menu-item-text">TMS</span>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                <a href="../dashboard.html" class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="menu-item-text">Dashboard</span>
+                </a>
+                <a href="../tourists/index.html" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span class="menu-item-text">Tourists</span>
+                </a>
+                <a href="../bookings/index.html" class="menu-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="menu-item-text">Bookings</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="../analytics/index.html" class="menu-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="menu-item-text">Analytics</span>
+                </a>
+                <a href="../guides/index.html" class="menu-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="menu-item-text">Tour Guides</span>
+                </a>
+                <a href="../payments/index.html" class="menu-item">
+                    <i class="fas fa-credit-card"></i>
+                    <span class="menu-item-text">Payments</span>
+                </a>
+                <a href="../weather/index.html" class="menu-item active">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span class="menu-item-text">Weather</span>
+                </a>
+                <a href="../documents/index.html" class="menu-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="menu-item-text">Documents</span>
+                </a>
+                <a href="../itinerary/index.html" class="menu-item">
+                    <i class="fas fa-route"></i>
+                    <span class="menu-item-text">Itinerary</span>
+                </a>
+                <a href="../support/index.html" class="menu-item">
+                    <i class="fas fa-headset"></i>
+                    <span class="menu-item-text">Support</span>
+                </a>
+                <a href="../social/index.html" class="menu-item">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="menu-item-text">Social</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="../reports/index.html" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="menu-item-text">Reports</span>
+                </a>
+                <a href="../settings/index.html" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-item-text">Settings</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="#" class="menu-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="menu-item-text">Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header -->
+            <div class="main-header">
+                <div class="d-flex align-items-center">
+                    <button class="header-btn me-2" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h4 class="page-title">Weather</h4>
+                </div>
+                <div class="header-controls">
+                    <button class="header-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="header-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/150" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <p class="user-name" id="userName">John Doe</p>
+                            <p class="user-role" id="userRole">Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="content-container">
+                <!-- Location Search -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="location-search">
+                            <h5 class="mb-3">Check Weather for Any Location</h5>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Enter city or destination..." aria-label="Location search" id="locationSearch">
+                                <button class="btn btn-primary" type="button" id="searchBtn">
+                                    <i class="fas fa-search me-1"></i> Search
+                                </button>
+                            </div>
+                            <div class="mt-2">
+                                <span class="badge bg-secondary me-1 location-badge">Paris</span>
+                                <span class="badge bg-secondary me-1 location-badge">London</span>
+                                <span class="badge bg-secondary me-1 location-badge">Tokyo</span>
+                                <span class="badge bg-secondary me-1 location-badge">New York</span>
+                                <span class="badge bg-secondary me-1 location-badge">Sydney</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Weather Card -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Current Weather</h5>
+                        <div class="card-actions">
+                            <span class="badge bg-info">Last updated: 10 mins ago</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-4">
+                                        <i class="fas fa-cloud-sun fa-5x text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="mb-0">28°C</h2>
+                                        <p class="text-muted mb-0">Partly Cloudy</p>
+                                        <h4 class="mt-2 mb-0">Barcelona, Spain</h4>
+                                        <p class="text-muted">Monday, September 4, 2023 | 2:45 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <div class="weather-detail">
+                                            <i class="fas fa-temperature-high fa-2x mb-2 text-primary"></i>
+                                            <p class="mb-0 fw-bold">Feels Like</p>
+                                            <p class="mb-0">30°C</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="weather-detail">
+                                            <i class="fas fa-wind fa-2x mb-2 text-primary"></i>
+                                            <p class="mb-0 fw-bold">Wind</p>
+                                            <p class="mb-0">12 km/h</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="weather-detail">
+                                            <i class="fas fa-tint fa-2x mb-2 text-primary"></i>
+                                            <p class="mb-0 fw-bold">Humidity</p>
+                                            <p class="mb-0">65%</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 mt-4">
+                                        <div class="weather-detail">
+                                            <i class="fas fa-eye fa-2x mb-2 text-primary"></i>
+                                            <p class="mb-0 fw-bold">Visibility</p>
+                                            <p class="mb-0">10 km</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 mt-4">
+                                        <div class="weather-detail">
+                                            <i class="fas fa-compress-arrows-alt fa-2x mb-2 text-primary"></i>
+                                            <p class="mb-0 fw-bold">Pressure</p>
+                                            <p class="mb-0">1013 hPa</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 mt-4">
+                                        <div class="weather-detail">
+                                            <i class="fas fa-sun fa-2x mb-2 text-primary"></i>
+                                            <p class="mb-0 fw-bold">UV Index</p>
+                                            <p class="mb-0">7 (High)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5-Day Forecast -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">5-Day Forecast</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="forecast-day">
+                                    <p class="mb-2 fw-bold">Tue</p>
+                                    <i class="fas fa-sun fa-2x mb-2 text-warning"></i>
+                                    <p class="mb-0"><span class="temp-high">32°</span> / <span class="temp-low">24°</span></p>
+                                    <p class="text-muted small mb-0">Sunny</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="forecast-day">
+                                    <p class="mb-2 fw-bold">Wed</p>
+                                    <i class="fas fa-cloud-sun fa-2x mb-2 text-warning"></i>
+                                    <p class="mb-0"><span class="temp-high">30°</span> / <span class="temp-low">23°</span></p>
+                                    <p class="text-muted small mb-0">Partly Cloudy</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="forecast-day">
+                                    <p class="mb-2 fw-bold">Thu</p>
+                                    <i class="fas fa-cloud fa-2x mb-2 text-secondary"></i>
+                                    <p class="mb-0"><span class="temp-high">28°</span> / <span class="temp-low">21°</span></p>
+                                    <p class="text-muted small mb-0">Cloudy</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="forecast-day">
+                                    <p class="mb-2 fw-bold">Fri</p>
+                                    <i class="fas fa-cloud-showers-heavy fa-2x mb-2 text-primary"></i>
+                                    <p class="mb-0"><span class="temp-high">26°</span> / <span class="temp-low">20°</span></p>
+                                    <p class="text-muted small mb-0">Rain</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="forecast-day">
+                                    <p class="mb-2 fw-bold">Sat</p>
+                                    <i class="fas fa-cloud-sun fa-2x mb-2 text-warning"></i>
+                                    <p class="mb-0"><span class="temp-high">27°</span> / <span class="temp-low">21°</span></p>
+                                    <p class="text-muted small mb-0">Partly Cloudy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Map and Alerts -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title">Weather Map</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="weather-map-container" style="height: 400px; background-color: #eef2f5; display: flex; align-items: center; justify-content: center;">
+                                    <div class="text-center">
+                                        <i class="fas fa-map fa-4x mb-3 text-muted"></i>
+                                        <h5>Interactive Weather Map</h5>
+                                        <p class="text-muted">Weather radar and temperature layers will appear here</p>
+                                    </div>
+                                </div>
+                                <div class="p-3">
+                                    <div class="map-controls">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mapLayerOptions" id="temperatureLayer" checked>
+                                            <label class="form-check-label" for="temperatureLayer">Temperature</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mapLayerOptions" id="precipitationLayer">
+                                            <label class="form-check-label" for="precipitationLayer">Precipitation</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mapLayerOptions" id="windLayer">
+                                            <label class="form-check-label" for="windLayer">Wind</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mapLayerOptions" id="pressureLayer">
+                                            <label class="form-check-label" for="pressureLayer">Pressure</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title">Weather Alerts</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex align-items-center p-3">
+                                        <div class="me-3">
+                                            <span class="badge bg-danger d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-exclamation-triangle fa-lg"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-1">Heavy Rain Alert</h6>
+                                            <p class="mb-1 small">Mallorca - Expected on Friday</p>
+                                            <span class="badge bg-secondary">4 hours ago</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center p-3">
+                                        <div class="me-3">
+                                            <span class="badge bg-warning text-dark d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-thermometer-full fa-lg"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-1">Extreme Heat Warning</h6>
+                                            <p class="mb-1 small">Seville - Expected Tuesday-Wednesday</p>
+                                            <span class="badge bg-secondary">12 hours ago</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center p-3">
+                                        <div class="me-3">
+                                            <span class="badge bg-info d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-wind fa-lg"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-1">Wind Advisory</h6>
+                                            <p class="mb-1 small">Gibraltar - Expected on Wednesday</p>
+                                            <span class="badge bg-secondary">1 day ago</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="p-3 text-center">
+                                    <button class="btn btn-sm btn-outline-primary">View All Alerts</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../../js/main.js"></script>
+</body>
+</html> 
