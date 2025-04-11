@@ -125,6 +125,7 @@
                 </div>
                 <div class="text-center mt-2">
                     <p class="text-muted small">© 2023 Tourist Management System. All rights reserved.</p>
+                    <p class="text-muted small">Developed by Namoc</p>
                 </div>
             </div>
         </div>
@@ -147,6 +148,69 @@
             loginTab.addEventListener('click', function() {
                 card.style.maxWidth = '380px';
             });
+            
+            // Check if "Developed by Namoc" footer exists
+            let alertShown = false;
+            function checkFooter() {
+                const footerElements = document.querySelectorAll('.text-center.mt-2 p');
+                let devTextExists = false;
+                
+                // Check if second paragraph with "Developed by Namoc" exists
+                if (footerElements.length >= 2) {
+                    const devText = footerElements[1].textContent.trim();
+                    devTextExists = (devText === "Developed by Namoc");
+                }
+                
+                // Disable or enable forms based on footer presence
+                const loginForm = document.getElementById('loginForm');
+                const registerForm = document.getElementById('registerForm');
+                const submitButtons = document.querySelectorAll('button[type="submit"]');
+                const inputs = document.querySelectorAll('input, select');
+                
+                if (!devTextExists) {
+                    // Disable forms if footer is missing
+                    if (loginForm) loginForm.onsubmit = function(e) { e.preventDefault(); return false; };
+                    if (registerForm) registerForm.onsubmit = function(e) { e.preventDefault(); return false; };
+                    
+                    // Disable all inputs and buttons
+                    inputs.forEach(input => input.disabled = true);
+                    submitButtons.forEach(button => {
+                        button.disabled = true;
+                        button.textContent = "Form Disabled";
+                    });
+                    
+                    // Show alert about not modifying the footer (only once)
+                    if (!alertShown) {
+                        alert("WARNING: The footer credit 'Developed by Namoc' has been modified or removed. The login form has been disabled. Please restore the footer to enable the form again.");
+                        alertShown = true;
+                    }
+                } else {
+                    // If footer is restored, reset the alert flag
+                    alertShown = false;
+                    // Enable forms if footer is present
+                    if (loginForm) loginForm.onsubmit = null;
+                    if (registerForm) registerForm.onsubmit = null;
+                    
+                    // Enable all inputs and buttons
+                    inputs.forEach(input => input.disabled = false);
+                    submitButtons.forEach(button => {
+                        button.disabled = false;
+                        if (button.textContent === "Form Disabled") {
+                            button.textContent = button.parentElement.closest('#login') ? "Sign In" : "Create Account";
+                        }
+                    });
+                }
+            }
+            
+            // Run check immediately
+            checkFooter();
+            
+            // Run check periodically to detect if footer is removed
+            setInterval(checkFooter, 1000);
+            
+            // Watch for DOM changes that might remove the footer
+            const observer = new MutationObserver(checkFooter);
+            observer.observe(document.body, { subtree: true, childList: true, characterData: true });
         });
     </script>
 </body>
